@@ -1,6 +1,6 @@
 ﻿# Blockchain-Based-Intellectual-Property-Protection-Platform
 
-# Blockchain-Based Intellectual Property Protection Platform
+
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-green)  
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)  
@@ -118,6 +118,7 @@ Commit changes
 Push to branch
 
 Create a Pull Request
+
 
 
 
