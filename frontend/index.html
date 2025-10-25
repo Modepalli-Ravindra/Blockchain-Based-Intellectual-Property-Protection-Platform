@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF--8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain IP Protect - Intellectual Property Protection Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Tailwind CSS dark mode configuration
+      tailwind.config = {
+        darkMode: 'class',
+      }
+    </script>
+    <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.1.1/",
+    "react/": "https://aistudiocdn.com/react@^19.1.1/",
+    "react": "https://aistudiocdn.com/react@^19.1.1"
+  }
+}
+</script>
+<script>
+  // Flicker-prevention script
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme');
+      if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    } catch (_) {}
+  })();
+</script>
+<style>
+  @keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-25px) rotate(180deg); }
+    100% { transform: translateY(0px) rotate(360deg); }
+  }
+  @keyframes float-reverse {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(25px) rotate(-180deg); }
+    100% { transform: translateY(0px) rotate(360deg); }
+  }
+  .shape-item {
+    position: absolute;
+    opacity: 0.25;
+  }
+  .dark .shape-item {
+    opacity: 0.25;
+  }
+  .light .shape-item {
+     opacity: 0.1;
+  }
+  @keyframes fade-in-down {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fade-in-up {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-in-down { animation: fade-in-down 0.5s ease-out forwards; }
+  .animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+
+  /* Toast Animations */
+  @keyframes toast-slide-in {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  @keyframes toast-fade-out {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+  }
+  .animate-toast-in {
+    animation: toast-slide-in 0.3s ease-out forwards;
+  }
+  .animate-toast-out {
+    animation: toast-fade-out 0.3s ease-in forwards;
+  }
+</style>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-white dark:bg-black transition-colors duration-300" style="font-family: 'Inter', sans-serif;">
+    <div id="root"></div>
+    <!-- Primary CDN for html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" 
+            integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoVBL5gI9kLmbG0CsdTXLCcJOCr4Gg==" 
+            crossorigin="anonymous" 
+            referrerpolicy="no-referrer"
+            onerror="console.log('Primary html2canvas CDN failed, trying fallback...'); this.onerror=null; this.src='https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js';">
+    </script>
+    <!-- Fallback CDN for html2canvas -->
+    <script>
+      // Fallback if both CDNs fail
+      window.addEventListener('load', function() {
+        setTimeout(() => {
+          if (typeof window.html2canvas === 'undefined') {
+            console.log('html2canvas failed to load from CDN, loading local fallback...');
+            // Dynamically load from a different CDN
+            const script = document.createElement('script');
+            script.src = 'https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js';
+            script.onload = function() {
+              console.log('Fallback html2canvas loaded successfully');
+            };
+            script.onerror = function() {
+              console.error('All html2canvas CDNs failed to load');
+            };
+            document.head.appendChild(script);
+          }
+        }, 1000);
+      });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Library loading diagnostic -->
+    <script>
+      // Diagnostic function to check library loading
+      window.checkPdfLibraries = function() {
+        console.log('=== PDF Library Status Check ===');
+        
+        // Check html2canvas
+        console.log('Checking html2canvas...');
+        if (typeof window.html2canvas !== 'undefined') {
+          console.log('✓ html2canvas is loaded:', typeof window.html2canvas);
+          console.log('  - Function:', typeof window.html2canvas === 'function');
+        } else {
+          console.log('✗ html2canvas is not loaded');
+          console.log('  - window.html2canvas:', typeof window.html2canvas);
+        }
+        
+        // Check jsPDF
+        console.log('\nChecking jsPDF...');
+        if (typeof window.jspdf !== 'undefined') {
+          console.log('✓ jspdf object exists');
+          console.log('  - window.jspdf type:', typeof window.jspdf);
+          
+          // Check for jsPDF constructor function
+          if (typeof window.jspdf.jsPDF === 'function') {
+            console.log('✓ jsPDF constructor function is available');
+          } else {
+            console.log('✗ jsPDF constructor function not found');
+            console.log('  - window.jspdf.jsPDF type:', typeof window.jspdf.jsPDF);
+          }
+        } else {
+          console.log('✗ jspdf object is not loaded');
+          console.log('  - window.jspdf:', typeof window.jspdf);
+        }
+        
+        console.log('\n=== End of Library Status Check ===');
+        return {
+          html2canvas: typeof window.html2canvas,
+          jspdf: typeof window.jspdf,
+          jspdfConstructor: typeof window.jspdf?.jsPDF
+        };
+      };
+      
+      // Run diagnostic on load
+      window.addEventListener('load', function() {
+        console.log('Running PDF library diagnostic...');
+        setTimeout(() => {
+          window.checkPdfLibraries();
+        }, 3000); // Wait 3 seconds for libraries to load
+      });
+    </script>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
